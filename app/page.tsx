@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 
 const categories = [
   "Nemlendirici",
@@ -8,52 +9,21 @@ const categories = [
   "Maske"
 ];
 
-const popularProducts = [
-  {
-    id: "la-roche-posay-anthelios",
-    name: "Anthelios UVMune 400 SPF50+",
-    brand: "La Roche-Posay",
-    lowestPrice: "879 TL",
-    stores: 34
-  },
-  {
-    id: "cerave-moisturizing-cream",
-    name: "Moisturizing Cream 340g",
-    brand: "CeraVe",
-    lowestPrice: "529 TL",
-    stores: 41
-  },
-  {
-    id: "bioderma-sensibio-gel",
-    name: "Sensibio Gel Moussant",
-    brand: "Bioderma",
-    lowestPrice: "619 TL",
-    stores: 29
-  },
-  {
-    id: "vichy-mineral-89",
-    name: "Minéral 89 Hyaluronik Serum",
-    brand: "Vichy",
-    lowestPrice: "749 TL",
-    stores: 26
-  },
-  {
-    id: "the-ordinary-niacinamide",
-    name: "Niacinamide 10% + Zinc 1%",
-    brand: "The Ordinary",
-    lowestPrice: "399 TL",
-    stores: 38
-  },
-  {
-    id: "cosrx-snail-mucin",
-    name: "Advanced Snail 96 Mucin Essence",
-    brand: "COSRX",
-    lowestPrice: "689 TL",
-    stores: 22
-  }
-];
+type ProductRow = {
+  id: string | number;
+  ad: string;
+  marka: string;
+  kategori: string;
+};
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { data, error } = await supabase
+    .from("urunler")
+    .select("id, ad, marka, kategori")
+    .limit(6);
+
+  const popularProducts: ProductRow[] = (data ?? []) as ProductRow[];
+
   return (
     <div className="rounded-3xl bg-[#F7F4EF] p-6 md:p-10">
       <header className="mb-14 flex flex-col gap-5 border-b border-[#D9D1C4] pb-6 md:flex-row md:items-center md:justify-between">
@@ -118,36 +88,41 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {popularProducts.map((product) => (
-            <article
-              key={product.id}
-              className="rounded-2xl border border-[#D8E0DB] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-            >
-              <p className="text-xs font-semibold uppercase tracking-wide text-[#708375]">
-                {product.brand}
-              </p>
-              <h3 className="mt-2 min-h-[52px] text-base font-semibold text-[#1F3328]">
-                {product.name}
-              </h3>
-
-              <div className="mt-5 flex items-end justify-between">
-                <div>
-                  <p className="text-xs text-[#7C8C82]">En düşük fiyat</p>
-                  <p className="text-xl font-bold text-[#3D5A47]">{product.lowestPrice}</p>
-                </div>
-                <p className="text-sm text-[#5D7264]">{product.stores} mağaza</p>
-              </div>
-
-              <Link
-                href={`/product/${product.id}`}
-                className="mt-5 inline-block text-sm font-semibold text-[#3D5A47] hover:underline"
+        {error ? (
+          <p className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+            Ürünler yüklenirken bir hata oluştu.
+          </p>
+        ) : popularProducts.length === 0 ? (
+          <p className="rounded-2xl border border-[#D8E0DB] bg-white p-4 text-sm text-[#5D7264]">
+            Henüz görüntülenecek ürün bulunmuyor.
+          </p>
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {popularProducts.map((product) => (
+              <article
+                key={product.id}
+                className="rounded-2xl border border-[#D8E0DB] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
               >
-                Fiyatları Karşılaştır
-              </Link>
-            </article>
-          ))}
-        </div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#708375]">
+                  {product.marka}
+                </p>
+                <h3 className="mt-2 min-h-[52px] text-base font-semibold text-[#1F3328]">
+                  {product.ad}
+                </h3>
+                <p className="mt-4 inline-block rounded-full bg-[#EEF2EE] px-3 py-1 text-xs font-medium text-[#3D5A47]">
+                  {product.kategori}
+                </p>
+
+                <Link
+                  href={`/product/${product.id}`}
+                  className="mt-5 inline-block text-sm font-semibold text-[#3D5A47] hover:underline"
+                >
+                  Ürünü İncele
+                </Link>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
