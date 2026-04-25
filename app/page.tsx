@@ -11,13 +11,23 @@ type ProductRow = {
 };
 
 export default async function HomePage() {
-  const { data, error } = await supabase
-    .from("urunler")
-    .select("id, ad, marka, kategori")
-    .order("id", { ascending: false })
-    .limit(6);
+  const [{ data, error }, { data: trendingMatches }] = await Promise.all([
+    supabase
+      .from("urunler")
+      .select("id, ad, marka, kategori")
+      .order("id", { ascending: false })
+      .limit(6),
+    supabase
+      .from("urunler")
+      .select("id, ad")
+      .in("ad", trendingProducts.map((p) => p.ad)),
+  ]);
 
   const popularProducts: ProductRow[] = (data ?? []) as ProductRow[];
+
+  const trendingIdMap = new Map<string, string | number>(
+    (trendingMatches ?? []).map((row) => [row.ad as string, row.id as string | number])
+  );
 
   return (
     <>
@@ -84,7 +94,7 @@ export default async function HomePage() {
               </p>
 
               <Link
-                href="/urunler"
+                href={trendingIdMap.has(product.ad) ? `/product/${trendingIdMap.get(product.ad)}` : "/urunler"}
                 className="mt-4 rounded-xl bg-white px-4 py-2 text-center text-xs font-bold text-purple-700 transition hover:bg-purple-50"
               >
                 İncele
