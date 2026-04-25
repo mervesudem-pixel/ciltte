@@ -39,7 +39,7 @@ const generalQuestions: Question[] = [
       { value: "ceneSivilce", label: "Çene/boyunda sivilce çıkıyor", score: 2 },
       { value: "yag", label: "Cildim çok yağlanıyor", score: 1 },
       { value: "degismiyor", label: "Pek bir şey olmuyor", score: 0 },
-      { value: "gecersiz", label: "Erkek/Geçerli değil", score: 0 }
+      { value: "gecersiz", label: "Bu beni etkilemiyor", score: 0 }
     ]
   },
   {
@@ -209,7 +209,7 @@ const zones: Zone[] = [
           { value: "hep", label: "Evet hep", score: 2 },
           { value: "bazen", label: "Bazen", score: 1 },
           { value: "hayir", label: "Hayır", score: 0 },
-          { value: "erkek", label: "Erkek", score: 0 }
+          { value: "gecersiz", label: "Bu beni etkilemiyor", score: 0 }
         ]
       },
       {
@@ -227,6 +227,15 @@ const zones: Zone[] = [
         options: [
           { value: "evet", label: "Evet", score: 1 },
           { value: "hayir", label: "Hayır", score: 0 }
+        ]
+      },
+      {
+        id: "ceneSiyah",
+        text: "Siyah nokta var mı?",
+        options: [
+          { value: "cok", label: "Çok var", score: 2 },
+          { value: "az", label: "Az var", score: 1 },
+          { value: "yok", label: "Yok", score: 0 }
         ]
       }
     ]
@@ -299,10 +308,113 @@ const ingredientGuide = [
   }
 ];
 
+type BudgetTier = {
+  range: string;
+  brands: string[];
+  products: string[];
+};
+
 function scoreToLevel(score: number) {
   if (score >= 6) return "Yüksek hassasiyet/risk";
   if (score >= 3) return "Orta düzey dikkat";
   return "Dengeli bölge";
+}
+
+function getBudgetTiers(totalScore: number): BudgetTier[] {
+  if (totalScore >= 24) {
+    // Hassas-Karma: bariyer onarımı öncelikli
+    return [
+      {
+        range: "Ekonomik (0–300 TL)",
+        brands: ["Sebamed", "Neutrogena", "Garnier Micellar"],
+        products: [
+          "Ceramide içerikli bariyer nemlendirici",
+          "Parfümsüz misel su temizleyici",
+          "Mineral filtreli güneş koruyucu SPF50+"
+        ]
+      },
+      {
+        range: "Orta Segment (300–700 TL)",
+        brands: ["CeraVe", "La Roche-Posay", "Vichy"],
+        products: [
+          "Ceramide + Hyalüronik Asit Nemlendirici (CeraVe Moisturizing Cream)",
+          "Cicaplast Baume B5 — bariyer onarım kremi",
+          "Toleriane serisi hassas cilt temizleyicisi"
+        ]
+      },
+      {
+        range: "Premium (700 TL ve üzeri)",
+        brands: ["Bioderma", "Avène", "Eucerin"],
+        products: [
+          "Avène Tolerance Extreme serisi — aşırı hassas cilt",
+          "Bioderma Sensibio AR Krem — kızarıklık karşıtı",
+          "Eucerin Aquaporin Active — yoğun bariyer nemlendirici"
+        ]
+      }
+    ];
+  }
+  if (totalScore >= 15) {
+    // Karma/Dönemsel Reaktif: sebum dengesi + noktasal aktifler
+    return [
+      {
+        range: "Ekonomik (0–300 TL)",
+        brands: ["Neutrogena", "Garnier", "Sebamed"],
+        products: [
+          "Salisilik asit içerikli temizleyici",
+          "Yağsız, hafif jel nemlendirici",
+          "Niacinamide tonik veya serum"
+        ]
+      },
+      {
+        range: "Orta Segment (300–700 TL)",
+        brands: ["La Roche-Posay", "CeraVe", "Vichy"],
+        products: [
+          "Effaclar Duo+ — gözenek ve akne karşıtı",
+          "CeraVe Foaming Facial Cleanser — yağlı/karma cilt",
+          "Vichy Normaderm Phytosolution serisi"
+        ]
+      },
+      {
+        range: "Premium (700 TL ve üzeri)",
+        brands: ["The Ordinary", "Avène", "Eucerin"],
+        products: [
+          "The Ordinary Niacinamide 10% + Zinc 1%",
+          "The Ordinary AHA 30% + BHA 2% Peeling Solution",
+          "Eucerin Pro Acne serisi — dönemsel akne bakımı"
+        ]
+      }
+    ];
+  }
+  // Dengeli: koruyucu rutin + temel aktifler
+  return [
+    {
+      range: "Ekonomik (0–300 TL)",
+      brands: ["Garnier", "Neutrogena", "Sebamed"],
+      products: [
+        "Günlük hafif nemlendirici (jel veya losyon formülü)",
+        "Nazik köpük veya jel temizleyici",
+        "SPF50 güneş koruyucu — günlük kullanım"
+      ]
+    },
+    {
+      range: "Orta Segment (300–700 TL)",
+      brands: ["CeraVe", "Vichy", "La Roche-Posay"],
+      products: [
+        "Hyalüronik asit serumu — nemlendirme desteği",
+        "Niacinamide serumu — denge ve ton eşitleme",
+        "La Roche-Posay Anthelios — SPF50+ günlük güneş koruma"
+      ]
+    },
+    {
+      range: "Premium (700 TL ve üzeri)",
+      brands: ["The Ordinary", "Bioderma", "Eucerin"],
+      products: [
+        "The Ordinary Buffet — çoklu peptid serumu",
+        "Bioderma Hydrabio serisi — uzun süreli nem",
+        "Eucerin Hyaluron-Filler — ince çizgi önleyici bakım"
+      ]
+    }
+  ];
 }
 
 export default function CiltAnaliziPage() {
@@ -345,9 +457,9 @@ export default function CiltAnaliziPage() {
           : "Dengeli ama Koruyucu Bakım Gereken Cilt";
 
     const keyInsight =
-      zoneScores.find((z) => z.zoneId === "yanaklar")?.score ?? 0 >= 5
+      (zoneScores.find((z) => z.zoneId === "yanaklar")?.score ?? 0) >= 5
         ? "Cildin kuru değil, bariyerin ince olabilir; yüzeyde kızarıklık ve gerginlik bu nedenle artıyor."
-        : zoneScores.find((z) => z.zoneId === "burun")?.score ?? 0 >= 5
+        : (zoneScores.find((z) => z.zoneId === "burun")?.score ?? 0) >= 5
           ? "Gözeneklerin sadece yağdan değil, düzensiz arındırmadan da doluyor olabilir."
           : "Cilt dengen fena değil; asıl ihtiyaç düzenli bariyer koruması ve noktasal aktif seçimi.";
 
@@ -357,7 +469,9 @@ export default function CiltAnaliziPage() {
       "Koruyucu bariyer zayıfken her gün yeni aktif denemek"
     ];
 
-    return { zoneScores, profileName, keyInsight, avoidList };
+    const budgetTiers = getBudgetTiers(totalScore);
+
+    return { zoneScores, profileName, keyInsight, avoidList, budgetTiers };
   }, [answers]);
 
   function setAnswer(questionId: string, value: string) {
@@ -378,6 +492,8 @@ export default function CiltAnaliziPage() {
     if (score >= 3) return "#D97706";
     return "#A7B8AE";
   }
+
+  const currentZone = sectionIndex >= 1 && sectionIndex <= 5 ? zones[sectionIndex - 1] : null;
 
   return (
     <div>
@@ -405,10 +521,24 @@ export default function CiltAnaliziPage() {
 
       {sectionIndex < 6 ? (
         <section className="space-y-5">
+          {currentZone && (
+            <div className="flex items-center gap-3 rounded-2xl border-2 border-[#3D5A47] bg-[#3D5A47] px-5 py-4">
+              <span className="text-2xl">📍</span>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#A8C4B0]">
+                  Şu an analiz edilen bölge
+                </p>
+                <p className="text-xl font-bold tracking-wide text-white">
+                  {currentZone.label.toUpperCase()}
+                </p>
+              </div>
+            </div>
+          )}
+
           {currentQuestions.map((question) => (
             <article key={question.id} className="rounded-2xl border border-[#D8E0DB] bg-white p-5">
               <p className="mb-3 font-semibold text-[#1F3328]">{question.text}</p>
-              <div className="grid gap-2 md:grid-cols-2">
+              <div className="grid grid-cols-2 gap-2">
                 {question.options.map((option) => {
                   const selected = answers[question.id] === option.value;
                   return (
@@ -426,6 +556,9 @@ export default function CiltAnaliziPage() {
                     </button>
                   );
                 })}
+                {Array.from({ length: Math.max(0, 4 - question.options.length) }).map((_, i) => (
+                  <div key={`ph-${i}`} aria-hidden="true" className="invisible rounded-xl border border-[#D8E0DB] px-3 py-2" />
+                ))}
               </div>
             </article>
           ))}
@@ -477,6 +610,46 @@ export default function CiltAnaliziPage() {
                   <p className="text-sm text-[#4F6657]">{ingredient.description}</p>
                 </div>
               ))}
+            </div>
+          </article>
+
+          <article className="rounded-2xl border border-[#D8E0DB] bg-white p-6">
+            <h3 className="mb-1 text-xl font-semibold text-[#1F3328]">💰 Bütçene Göre Öneriler</h3>
+            <p className="mb-5 text-sm text-[#5D7264]">
+              Cilt profiline göre her bütçe için önerilen ürün türleri.
+            </p>
+            <div className="space-y-4">
+              {analysis.budgetTiers.map((tier) => (
+                <div key={tier.range} className="rounded-xl border border-[#D8E0DB] p-4">
+                  <p className="mb-2 text-sm font-bold text-[#3D5A47]">{tier.range}</p>
+                  <div className="mb-3 flex flex-wrap gap-1.5">
+                    {tier.brands.map((brand) => (
+                      <span
+                        key={brand}
+                        className="rounded-full bg-[#EEF2EE] px-2.5 py-0.5 text-xs font-medium text-[#3D5A47]"
+                      >
+                        {brand}
+                      </span>
+                    ))}
+                  </div>
+                  <ul className="space-y-1">
+                    {tier.products.map((product) => (
+                      <li key={product} className="flex items-start gap-2 text-sm text-[#4F6657]">
+                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#3D5A47]" />
+                        {product}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div className="mt-5">
+              <Link
+                href="/urunler"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#3D5A47] px-5 py-2.5 text-sm font-semibold text-[#3D5A47] transition hover:bg-[#EEF2EE]"
+              >
+                Ürünleri Filtrele
+              </Link>
             </div>
           </article>
 
