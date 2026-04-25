@@ -60,10 +60,6 @@ type Props = {
   products: Product[];
 };
 
-function normalize(value: string) {
-  return value.toLocaleLowerCase("tr");
-}
-
 function estimatedPrice(id: string | number) {
   const raw = String(id);
   const base = raw.split("").reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
@@ -110,23 +106,7 @@ export default function UrunlerCatalog({ products }: Props) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedCiltTipleri, setSelectedCiltTipleri] = useState<string[]>([]);
   const [selectedSorunlar, setSelectedSorunlar] = useState<string[]>([]);
-  const [selectedMarkalar, setSelectedMarkalar] = useState<string[]>([]);
-  const [brandSearch, setBrandSearch] = useState("");
   const [maxPrice, setMaxPrice] = useState(2000);
-
-  const brands = useMemo(
-    () =>
-      Array.from(new Set(products.map((p) => toTitleCase(p.marka)).filter(Boolean))).sort((a, b) =>
-        a.localeCompare(b, "tr")
-      ),
-    [products]
-  );
-
-  const visibleBrands = useMemo(() => {
-    if (!brandSearch.trim()) return brands;
-    const q = normalize(brandSearch.trim());
-    return brands.filter((b) => normalize(b).includes(q));
-  }, [brands, brandSearch]);
 
   function toggle(setter: Dispatch<SetStateAction<string[]>>, value: string) {
     setter((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
@@ -136,15 +116,14 @@ export default function UrunlerCatalog({ products }: Props) {
     return products.filter((product) => {
       const kategoriOk =
         selectedCategories.length === 0 || selectedCategories.includes(product.kategori);
-      const markaOk = selectedMarkalar.length === 0 || selectedMarkalar.includes(toTitleCase(product.marka));
       const fiyatOk = estimatedPrice(product.id) <= maxPrice;
-      return kategoriOk && markaOk && fiyatOk;
+      return kategoriOk && fiyatOk;
     });
-  }, [products, selectedCategories, selectedMarkalar, maxPrice]);
+  }, [products, selectedCategories, maxPrice]);
 
   useEffect(() => {
     setPage(1);
-  }, [selectedCategories, selectedCiltTipleri, selectedSorunlar, selectedMarkalar, maxPrice]);
+  }, [selectedCategories, selectedCiltTipleri, selectedSorunlar, maxPrice]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
   const safePage = Math.min(page, totalPages);
@@ -194,29 +173,6 @@ export default function UrunlerCatalog({ products }: Props) {
             selected={selectedSorunlar}
             onToggle={(value) => toggle(setSelectedSorunlar, value)}
           />
-
-          <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#6D8275]">Marka</p>
-            <input
-              value={brandSearch}
-              onChange={(e) => setBrandSearch(e.target.value)}
-              placeholder="Marka ara..."
-              className="h-10 w-full rounded-lg border border-[#CCD8D1] px-3 text-sm outline-none focus:border-[#3D5A47]"
-            />
-            <div className="max-h-44 space-y-1 overflow-auto pr-1">
-              {visibleBrands.map((brand) => (
-                <label key={brand} className="flex cursor-pointer items-center gap-2 rounded-md p-1 hover:bg-[#F6F9F7]">
-                  <input
-                    type="checkbox"
-                    checked={selectedMarkalar.includes(brand)}
-                    onChange={() => toggle(setSelectedMarkalar, brand)}
-                    className="h-4 w-4 accent-[#3D5A47]"
-                  />
-                  <span className="text-sm text-[#2E4838]">{brand}</span>
-                </label>
-              ))}
-            </div>
-          </div>
 
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-[#6D8275]">
