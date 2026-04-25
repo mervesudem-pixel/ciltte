@@ -20,6 +20,7 @@ export default async function HomePage() {
   const { data, error } = await supabase
     .from("urunler")
     .select("id, ad, marka, kategori")
+    .order("id", { ascending: false })
     .limit(6);
 
   const popularProducts: ProductRow[] = (data ?? []) as ProductRow[];
@@ -34,10 +35,10 @@ export default async function HomePage() {
           <Link href="/" className="transition-opacity hover:opacity-70">
             Ana Sayfa
           </Link>
-          <Link href="/search" className="transition-opacity hover:opacity-70">
+          <Link href="/urunler" className="transition-opacity hover:opacity-70">
             Ürünler
           </Link>
-          <Link href="/search" className="transition-opacity hover:opacity-70">
+          <Link href="/urunler" className="transition-opacity hover:opacity-70">
             Markalar
           </Link>
         </nav>
@@ -71,7 +72,7 @@ export default async function HomePage() {
           {categories.map((category) => (
             <Link
               key={category}
-              href={`/search?q=${encodeURIComponent(category)}`}
+              href={`/urunler?kategori=${encodeURIComponent(category)}`}
               className="rounded-full border border-[#B8C7BE] bg-white px-5 py-2 text-sm font-medium text-[#3D5A47] transition hover:bg-[#EEF2EE]"
             >
               {category}
@@ -83,7 +84,7 @@ export default async function HomePage() {
       <section>
         <div className="mb-4 flex items-end justify-between">
           <h2 className="text-2xl font-semibold text-[#1F3328]">Popüler Ürünler</h2>
-          <Link href="/search" className="text-sm font-medium text-[#3D5A47] hover:underline">
+          <Link href="/urunler" className="text-sm font-medium text-[#3D5A47] hover:underline">
             Tümünü Gör
           </Link>
         </div>

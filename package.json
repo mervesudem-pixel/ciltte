@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fetch:products": "node scripts/fetch-products.js",
+    "fetch:trendyol": "node scripts/fetch-trendyol.js",
+    "fetch:beauty": "node scripts/fetch-openbeauty.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.53.0",
