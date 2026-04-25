@@ -19,27 +19,7 @@ export default async function HomePage() {
   const popularProducts: ProductRow[] = (data ?? []) as ProductRow[];
 
   return (
-    <div className="rounded-3xl bg-[#F7F4EF] p-6 md:p-10">
-      <header className="mb-14 flex flex-col gap-5 border-b border-[#D9D1C4] pb-6 md:flex-row md:items-center md:justify-between">
-        <Link href="/" className="text-3xl font-bold tracking-tight text-[#3D5A47]">
-          ciltte.
-        </Link>
-        <nav className="flex items-center gap-7 text-sm font-medium text-[#3D5A47]">
-          <Link href="/" className="transition-opacity hover:opacity-70">
-            Ana Sayfa
-          </Link>
-          <Link href="/urunler" className="transition-opacity hover:opacity-70">
-            Ürünler
-          </Link>
-          <Link href="/cilt-analizi" className="transition-opacity hover:opacity-70">
-            Cilt Analizi
-          </Link>
-          <Link href="/urunler" className="transition-opacity hover:opacity-70">
-            Markalar
-          </Link>
-        </nav>
-      </header>
-
+    <>
       <section className="mb-14 text-center">
         <h1 className="mx-auto max-w-3xl text-3xl font-bold tracking-tight text-[#1F3328] md:text-5xl">
           Türkiye&apos;nin Cilt Bakım Karşılaştırma Platformu
@@ -107,6 +87,6 @@ export default async function HomePage() {
           </div>
         )}
       </section>
-    </div>
+    </>
   );
 }

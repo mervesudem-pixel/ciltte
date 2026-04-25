@@ -48,11 +48,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   if (error) {
     return (
-      <section className="rounded-3xl bg-[#F7F4EF] p-6 md:p-10">
-        <p className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-          Ürün bilgisi alınırken bir hata oluştu.
-        </p>
-      </section>
+      <p className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+        Ürün bilgisi alınırken bir hata oluştu.
+      </p>
     );
   }
 
@@ -63,7 +61,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const product = data as ProductRow;
 
   return (
-    <section className="space-y-8 rounded-3xl bg-[#F7F4EF] p-6 md:p-10">
+    <div className="space-y-8">
       <header className="rounded-2xl border border-[#D8E0DB] bg-white p-6">
         <p className="text-sm font-medium text-[#708375]">{product.kategori}</p>
         <h1 className="mt-2 text-3xl font-bold text-[#1F3328]">{product.ad}</h1>
@@ -136,6 +134,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           Sahte Ürün Bildir
         </button>
       </div>
-    </section>
+    </div>
   );
 }

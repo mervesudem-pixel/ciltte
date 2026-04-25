@@ -380,7 +380,7 @@ export default function CiltAnaliziPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl rounded-3xl bg-[#F7F4EF] p-6 md:p-10">
+    <div>
       <header className="mb-8 border-b border-[#D9D1C4] pb-6">
         <h1 className="text-3xl font-bold text-[#1F3328] md:text-4xl">Cilt Analizi</h1>
         <p className="mt-2 text-[#4F6657]">
