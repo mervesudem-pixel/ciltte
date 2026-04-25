@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { toTitleCase } from "@/lib/utils";
 
 type ProductDetailPageProps = {
   params: {
@@ -66,7 +67,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       <header className="rounded-2xl border border-[#D8E0DB] bg-white p-6">
         <p className="text-sm font-medium text-[#708375]">{product.kategori}</p>
         <h1 className="mt-2 text-3xl font-bold text-[#1F3328]">{product.ad}</h1>
-        <p className="mt-2 text-base text-[#4F6657]">Marka: {product.marka}</p>
+        <p className="mt-2 text-base text-[#4F6657]">Marka: {toTitleCase(product.marka)}</p>
       </header>
 
       <section className="rounded-2xl border border-[#D8E0DB] bg-white p-6">

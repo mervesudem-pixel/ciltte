@@ -1,13 +1,6 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
-
-const categories = [
-  "Nemlendirici",
-  "Serum",
-  "Güneş Kremi",
-  "Temizleyici",
-  "Maske"
-];
+import { toTitleCase } from "@/lib/utils";
 
 type ProductRow = {
   id: string | number;
@@ -38,13 +31,16 @@ export default async function HomePage() {
           <Link href="/urunler" className="transition-opacity hover:opacity-70">
             Ürünler
           </Link>
+          <Link href="/cilt-analizi" className="transition-opacity hover:opacity-70">
+            Cilt Analizi
+          </Link>
           <Link href="/urunler" className="transition-opacity hover:opacity-70">
             Markalar
           </Link>
         </nav>
       </header>
 
-      <section className="mb-12 text-center">
+      <section className="mb-14 text-center">
         <h1 className="mx-auto max-w-3xl text-3xl font-bold tracking-tight text-[#1F3328] md:text-5xl">
           Türkiye&apos;nin Cilt Bakım Karşılaştırma Platformu
         </h1>
@@ -52,32 +48,18 @@ export default async function HomePage() {
           122 sitede en ucuz fiyatı bul, sahte ürünlerden korun
         </p>
 
-        <div className="mx-auto mt-8 flex w-full max-w-3xl items-center rounded-2xl border border-[#CFD8D1] bg-white p-2 shadow-sm">
+        <div className="mx-auto mt-9 flex w-full max-w-4xl items-center rounded-2xl border border-[#C5D2CA] bg-white p-2.5 shadow-md">
           <input
             type="text"
-            placeholder="Ürün, marka veya içerik ara..."
-            className="h-12 w-full rounded-xl px-4 text-base text-[#1F3328] outline-none placeholder:text-[#8A998F]"
+            placeholder="Ürün, marka, içerik veya sorun ara... (örn: CeraVe, niacinamide, gözenek)"
+            className="h-14 w-full rounded-xl px-5 text-base text-[#1F3328] outline-none placeholder:text-[#7E9186] md:text-lg"
           />
           <button
             type="button"
-            className="h-12 rounded-xl bg-[#3D5A47] px-6 text-sm font-semibold text-white transition hover:opacity-90"
+            className="h-14 rounded-xl bg-[#3D5A47] px-7 text-base font-semibold text-white transition hover:opacity-90"
           >
             Ara
           </button>
-        </div>
-      </section>
-
-      <section className="mb-12">
-        <div className="flex flex-wrap justify-center gap-3">
-          {categories.map((category) => (
-            <Link
-              key={category}
-              href={`/urunler?kategori=${encodeURIComponent(category)}`}
-              className="rounded-full border border-[#B8C7BE] bg-white px-5 py-2 text-sm font-medium text-[#3D5A47] transition hover:bg-[#EEF2EE]"
-            >
-              {category}
-            </Link>
-          ))}
         </div>
       </section>
 
@@ -105,7 +87,7 @@ export default async function HomePage() {
                 className="rounded-2xl border border-[#D8E0DB] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 <p className="text-xs font-semibold uppercase tracking-wide text-[#708375]">
-                  {product.marka}
+                  {toTitleCase(product.marka)}
                 </p>
                 <h3 className="mt-2 min-h-[52px] text-base font-semibold text-[#1F3328]">
                   {product.ad}
