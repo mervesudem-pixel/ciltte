@@ -113,6 +113,16 @@ const zones: Zone[] = [
           { value: "evet", label: "Evet", score: 1 },
           { value: "hayir", label: "Hayır", score: 0 }
         ]
+      },
+      {
+        id: "alinCizgi",
+        text: "Alnında ince çizgi veya kırışık fark ediyor musun?",
+        options: [
+          { value: "belirgin", label: "Evet belirgin", score: 2 },
+          { value: "hafif", label: "Hafif başlıyor", score: 1 },
+          { value: "yok", label: "Henüz yok", score: 0 },
+          { value: "fark_etmedim", label: "Hiç dikkat etmedim", score: 0 }
+        ]
       }
     ]
   },
@@ -145,6 +155,16 @@ const zones: Zone[] = [
           { value: "evet", label: "Evet", score: 2 },
           { value: "hayir", label: "Hayır", score: 0 },
           { value: "bazen", label: "Bazen", score: 1 }
+        ]
+      },
+      {
+        id: "burunGozenekBuyume",
+        text: "Burun üzerindeki gözenekler gün içinde büyüyor mu?",
+        options: [
+          { value: "cok_belirgin", label: "Evet çok belirgin", score: 2 },
+          { value: "biraz", label: "Biraz", score: 1 },
+          { value: "degismiyor", label: "Hayır değişmiyor", score: 0 },
+          { value: "fark_etmedim", label: "Fark etmedim", score: 0 }
         ]
       }
     ]
@@ -195,6 +215,16 @@ const zones: Zone[] = [
           { value: "bazen", label: "Bazen", score: 1 },
           { value: "hic", label: "Hiç", score: 0 }
         ]
+      },
+      {
+        id: "yanakGunes",
+        text: "Yanakların güneşe çıkınca nasıl tepki veriyor?",
+        options: [
+          { value: "hemen_kizariyor", label: "Hemen kızarıyor", score: 2 },
+          { value: "hafif_kizariyor", label: "Hafif kızarıyor", score: 1 },
+          { value: "bronzlasiyor", label: "Normal bronzlaşıyor", score: 0 },
+          { value: "pek_cikmiyorum", label: "Pek çıkmıyorum", score: 0 }
+        ]
       }
     ]
   },
@@ -237,6 +267,16 @@ const zones: Zone[] = [
           { value: "az", label: "Az var", score: 1 },
           { value: "yok", label: "Yok", score: 0 }
         ]
+      },
+      {
+        id: "ceneLeke",
+        text: "Çenende uzun süre geçmeyen leke var mı?",
+        options: [
+          { value: "cok", label: "Evet çok var", score: 2 },
+          { value: "az", label: "Az var", score: 1 },
+          { value: "yok", label: "Hayır yok", score: 0 },
+          { value: "fark_etmedim", label: "Fark etmedim", score: 0 }
+        ]
       }
     ]
   },
@@ -269,6 +309,16 @@ const zones: Zone[] = [
           { value: "evet", label: "Evet", score: 2 },
           { value: "bazen", label: "Bazen", score: 1 },
           { value: "hayir", label: "Hayır", score: 0 }
+        ]
+      },
+      {
+        id: "gozSisme",
+        text: "Göz altın sabahları şişiyor mu?",
+        options: [
+          { value: "her_sabah", label: "Evet her sabah", score: 2 },
+          { value: "bazen", label: "Bazen", score: 1 },
+          { value: "sismiyor", label: "Hayır şişmiyor", score: 0 },
+          { value: "fark_etmedim", label: "Fark etmedim", score: 0 }
         ]
       }
     ]
