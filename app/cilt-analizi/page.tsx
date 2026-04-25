@@ -83,44 +83,49 @@ const zones: Zone[] = [
         id: "alinYag",
         text: "Yağlanıyor mu?",
         options: [
-          { value: "evet", label: "Evet", score: 2 },
-          { value: "hayir", label: "Hayır", score: 0 },
-          { value: "bazen", label: "Bazen", score: 1 }
+          { value: "her_gun", label: "Her gün belirgin şekilde parlıyor", score: 2 },
+          { value: "ara_sira", label: "Ara sıra, özellikle öğleden sonra", score: 1 },
+          { value: "cok_nadir", label: "Çok nadir oluyor", score: 0 },
+          { value: "hic", label: "Hiç olmuyor", score: 0 }
         ]
       },
       {
         id: "alinSiyah",
         text: "Siyah nokta var mı?",
         options: [
-          { value: "cok", label: "Çok var", score: 2 },
-          { value: "az", label: "Az var", score: 1 },
-          { value: "yok", label: "Yok", score: 0 }
+          { value: "cok_fazla", label: "Çok fazla, belirgin şekilde", score: 2 },
+          { value: "birkac", label: "Birkaç tane fark ediyorum", score: 1 },
+          { value: "cok_az", label: "Çok az, neredeyse yok", score: 0 },
+          { value: "hic", label: "Hiç yok", score: 0 }
         ]
       },
       {
         id: "alinSivilce",
         text: "Sivilce çıkıyor mu?",
         options: [
-          { value: "sik", label: "Sık", score: 2 },
-          { value: "nadiren", label: "Nadiren", score: 1 },
-          { value: "hic", label: "Hiç", score: 0 }
+          { value: "surekli", label: "Sürekli çıkıyor", score: 2 },
+          { value: "ayda_birkac", label: "Ayda birkaç kez", score: 1 },
+          { value: "nadiren", label: "Nadiren çıkıyor", score: 0 },
+          { value: "hic", label: "Hiç çıkmıyor", score: 0 }
         ]
       },
       {
         id: "alinSac",
         text: "Saç ürünü (krem/maske) kullanıyor musun?",
         options: [
-          { value: "evet", label: "Evet", score: 1 },
-          { value: "hayir", label: "Hayır", score: 0 }
+          { value: "duzenli", label: "Evet, düzenli olarak kullanıyorum", score: 1 },
+          { value: "bazen", label: "Ara sıra kullanıyorum", score: 1 },
+          { value: "cok_nadir", label: "Çok nadiren", score: 0 },
+          { value: "hic", label: "Hayır, hiç kullanmıyorum", score: 0 }
         ]
       },
       {
         id: "alinCizgi",
         text: "Alnında ince çizgi veya kırışık fark ediyor musun?",
         options: [
-          { value: "belirgin", label: "Evet belirgin", score: 2 },
-          { value: "hafif", label: "Hafif başlıyor", score: 1 },
-          { value: "yok", label: "Henüz yok", score: 0 },
+          { value: "belirgin", label: "Evet, oldukça belirgin", score: 2 },
+          { value: "hafif", label: "Hafif çizgiler başlıyor", score: 1 },
+          { value: "yok", label: "Henüz hiç yok", score: 0 },
           { value: "fark_etmedim", label: "Hiç dikkat etmedim", score: 0 }
         ]
       }
@@ -134,37 +139,40 @@ const zones: Zone[] = [
         id: "burunSiyah",
         text: "Siyah nokta var mı?",
         options: [
-          { value: "cok", label: "Çok var", score: 2 },
-          { value: "az", label: "Az var", score: 1 },
-          { value: "yok", label: "Yok", score: 0 }
+          { value: "cok_fazla", label: "Çok fazla, dolup taşıyor", score: 2 },
+          { value: "birkac", label: "Birkaç tane fark ediyorum", score: 1 },
+          { value: "cok_az", label: "Çok az, neredeyse yok", score: 0 },
+          { value: "hic", label: "Hiç yok", score: 0 }
         ]
       },
       {
         id: "burunGozenek",
         text: "Gözenekler belirgin mi?",
         options: [
-          { value: "cok", label: "Çok belirgin", score: 2 },
-          { value: "biraz", label: "Biraz", score: 1 },
-          { value: "hayir", label: "Hayır", score: 0 }
+          { value: "uzaktan", label: "Aynaya yaklaşmadan bile görünüyor", score: 2 },
+          { value: "yakindan", label: "Yakından bakınca fark ediliyor", score: 1 },
+          { value: "cok_az", label: "Çok az belirgin", score: 0 },
+          { value: "hic", label: "Hiç belirgin değil", score: 0 }
         ]
       },
       {
         id: "burunYag",
         text: "Gün içinde yağlanıyor mu?",
         options: [
-          { value: "evet", label: "Evet", score: 2 },
-          { value: "hayir", label: "Hayır", score: 0 },
-          { value: "bazen", label: "Bazen", score: 1 }
+          { value: "her_gun", label: "Her gün belirgin şekilde parlıyor", score: 2 },
+          { value: "ara_sira", label: "Ara sıra, öğleden sonra beliriyor", score: 1 },
+          { value: "cok_nadir", label: "Çok nadir oluyor", score: 0 },
+          { value: "hic", label: "Hiç olmuyor", score: 0 }
         ]
       },
       {
         id: "burunGozenekBuyume",
         text: "Burun üzerindeki gözenekler gün içinde büyüyor mu?",
         options: [
-          { value: "cok_belirgin", label: "Evet çok belirgin", score: 2 },
-          { value: "biraz", label: "Biraz", score: 1 },
-          { value: "degismiyor", label: "Hayır değişmiyor", score: 0 },
-          { value: "fark_etmedim", label: "Fark etmedim", score: 0 }
+          { value: "cok_belirgin", label: "Evet, gün sonunda çok belirgin", score: 2 },
+          { value: "biraz", label: "Biraz fark ediyorum", score: 1 },
+          { value: "degismiyor", label: "Pek değişmiyor gibi", score: 0 },
+          { value: "fark_etmedim", label: "Hiç dikkat etmedim", score: 0 }
         ]
       }
     ]
@@ -177,53 +185,60 @@ const zones: Zone[] = [
         id: "yanakKuruluk",
         text: "Kuruluk/gerginlik hissediyor musun?",
         options: [
-          { value: "evet", label: "Evet", score: 2 },
-          { value: "bazen", label: "Bazen", score: 1 },
-          { value: "hayir", label: "Hayır", score: 0 }
+          { value: "her_gun", label: "Evet, her gün belirgin şekilde", score: 2 },
+          { value: "ara_sira", label: "Ara sıra, özellikle kışın", score: 1 },
+          { value: "cok_nadir", label: "Çok nadir hissediyorum", score: 0 },
+          { value: "hic", label: "Hiç hissetmiyorum", score: 0 }
         ]
       },
       {
         id: "yanakKizariklik",
         text: "Kızarıklık var mı?",
         options: [
-          { value: "sik", label: "Sık", score: 2 },
-          { value: "bazen", label: "Bazen", score: 1 },
-          { value: "hayir", label: "Hayır", score: 0 }
+          { value: "sik_sik", label: "Sık sık oluyor", score: 2 },
+          { value: "ara_sira", label: "Ara sıra beliriyor", score: 1 },
+          { value: "nadiren", label: "Nadiren oluyor", score: 0 },
+          { value: "hic", label: "Hiç olmuyor", score: 0 }
         ]
       },
       {
         id: "yanakNokta",
         text: "Siyah/beyaz nokta var mı?",
         options: [
-          { value: "evet", label: "Evet", score: 2 },
-          { value: "hayir", label: "Hayır", score: 0 }
+          { value: "oldukca_fazla", label: "Evet, oldukça fazla", score: 2 },
+          { value: "birkac", label: "Birkaç tane var", score: 1 },
+          { value: "cok_az", label: "Çok az, fark edilmez", score: 0 },
+          { value: "hic", label: "Hiç yok", score: 0 }
         ]
       },
       {
         id: "yanakTelefon",
         text: "Telefonu yanağına dayayarak konuşuyor musun?",
         options: [
-          { value: "evet", label: "Evet", score: 1 },
-          { value: "hayir", label: "Hayır", score: 0 }
+          { value: "cok_sik", label: "Evet, çok sık konuşuyorum", score: 1 },
+          { value: "ara_sira", label: "Ara sıra oluyorum", score: 1 },
+          { value: "cok_nadir", label: "Çok nadir, genelde kulaklık kullanıyorum", score: 0 },
+          { value: "hic", label: "Hiç, sadece kulaklık kullanıyorum", score: 0 }
         ]
       },
       {
         id: "yanakAgrili",
         text: "Ağrılı sivilce çıkıyor mu?",
         options: [
-          { value: "sik", label: "Sık", score: 2 },
-          { value: "bazen", label: "Bazen", score: 1 },
-          { value: "hic", label: "Hiç", score: 0 }
+          { value: "surekli", label: "Sürekli çıkıyor", score: 2 },
+          { value: "ayda_birkac", label: "Ayda birkaç kez", score: 1 },
+          { value: "nadiren", label: "Nadiren çıkıyor", score: 0 },
+          { value: "hic", label: "Hiç çıkmıyor", score: 0 }
         ]
       },
       {
         id: "yanakGunes",
         text: "Yanakların güneşe çıkınca nasıl tepki veriyor?",
         options: [
-          { value: "hemen_kizariyor", label: "Hemen kızarıyor", score: 2 },
-          { value: "hafif_kizariyor", label: "Hafif kızarıyor", score: 1 },
+          { value: "hemen_kizariyor", label: "Hemen kızarıyor, yanıyor", score: 2 },
+          { value: "hafif_kizariyor", label: "Hafif kızarıyor, geçiyor", score: 1 },
           { value: "bronzlasiyor", label: "Normal bronzlaşıyor", score: 0 },
-          { value: "pek_cikmiyorum", label: "Pek çıkmıyorum", score: 0 }
+          { value: "pek_cikmiyorum", label: "Güneşe pek çıkmıyorum", score: 0 }
         ]
       }
     ]
@@ -236,9 +251,9 @@ const zones: Zone[] = [
         id: "ceneAdet",
         text: "Adet döneminde bu bölgede sivilce çıkıyor mu?",
         options: [
-          { value: "hep", label: "Evet hep", score: 2 },
-          { value: "bazen", label: "Bazen", score: 1 },
-          { value: "hayir", label: "Hayır", score: 0 },
+          { value: "hep", label: "Her dönem kesinlikle çıkıyor", score: 2 },
+          { value: "bazen", label: "Bazen çıkıyor, düzenli değil", score: 1 },
+          { value: "hic", label: "Çok nadir ya da hiç", score: 0 },
           { value: "gecersiz", label: "Bu beni etkilemiyor", score: 0 }
         ]
       },
@@ -246,36 +261,40 @@ const zones: Zone[] = [
         id: "ceneDerin",
         text: "Ağrılı, derin sivilce var mı?",
         options: [
-          { value: "sik", label: "Sık", score: 2 },
-          { value: "bazen", label: "Bazen", score: 1 },
-          { value: "hic", label: "Hiç", score: 0 }
+          { value: "surekli", label: "Sürekli çıkıyor", score: 2 },
+          { value: "ayda_birkac", label: "Ayda birkaç kez", score: 1 },
+          { value: "nadiren", label: "Nadiren çıkıyor", score: 0 },
+          { value: "hic", label: "Hiç çıkmıyor", score: 0 }
         ]
       },
       {
         id: "ceneBeyaz",
         text: "Beyaz nokta var mı?",
         options: [
-          { value: "evet", label: "Evet", score: 1 },
-          { value: "hayir", label: "Hayır", score: 0 }
+          { value: "oldukca_fazla", label: "Evet, oldukça fazla", score: 1 },
+          { value: "birkac", label: "Birkaç tane var", score: 1 },
+          { value: "cok_az", label: "Çok az, fark edilmez", score: 0 },
+          { value: "hic", label: "Hiç yok", score: 0 }
         ]
       },
       {
         id: "ceneSiyah",
         text: "Siyah nokta var mı?",
         options: [
-          { value: "cok", label: "Çok var", score: 2 },
-          { value: "az", label: "Az var", score: 1 },
-          { value: "yok", label: "Yok", score: 0 }
+          { value: "cok_fazla", label: "Çok fazla, belirgin şekilde", score: 2 },
+          { value: "birkac", label: "Birkaç tane fark ediyorum", score: 1 },
+          { value: "cok_az", label: "Çok az, neredeyse yok", score: 0 },
+          { value: "hic", label: "Hiç yok", score: 0 }
         ]
       },
       {
         id: "ceneLeke",
         text: "Çenende uzun süre geçmeyen leke var mı?",
         options: [
-          { value: "cok", label: "Evet çok var", score: 2 },
-          { value: "az", label: "Az var", score: 1 },
-          { value: "yok", label: "Hayır yok", score: 0 },
-          { value: "fark_etmedim", label: "Fark etmedim", score: 0 }
+          { value: "cok", label: "Evet, çok var ve rahatsız edici", score: 2 },
+          { value: "az", label: "Birkaç tane var", score: 1 },
+          { value: "yok", label: "Yok, cildim temiz", score: 0 },
+          { value: "fark_etmedim", label: "Hiç dikkat etmedim", score: 0 }
         ]
       }
     ]
@@ -286,39 +305,42 @@ const zones: Zone[] = [
     questions: [
       {
         id: "gozMorluk",
-        text: "Morluk var mı?",
+        text: "Göz altında morluk/halka var mı?",
         options: [
-          { value: "belirgin", label: "Belirgin", score: 2 },
-          { value: "hafif", label: "Hafif", score: 1 },
-          { value: "yok", label: "Yok", score: 0 }
+          { value: "cok_belirgin", label: "Çok belirgin, makyaj bile kapatmıyor", score: 2 },
+          { value: "hafif", label: "Hafif, ama fark ediliyor", score: 1 },
+          { value: "cok_az", label: "Çok az, neredeyse yok", score: 0 },
+          { value: "hic", label: "Hiç yok", score: 0 }
         ]
       },
       {
         id: "gozCizgi",
-        text: "İnce çizgi var mı?",
+        text: "Göz kenarında ince çizgi var mı?",
         options: [
-          { value: "belirgin", label: "Belirgin", score: 2 },
-          { value: "hafif", label: "Hafif", score: 1 },
-          { value: "yok", label: "Yok", score: 0 }
+          { value: "belirgin", label: "Belirgin, rahatsız edici", score: 2 },
+          { value: "hafif", label: "Hafif çizgiler başlıyor", score: 1 },
+          { value: "cok_az", label: "Çok az, neredeyse yok", score: 0 },
+          { value: "hic", label: "Hiç yok", score: 0 }
         ]
       },
       {
         id: "gozKuruluk",
-        text: "Kuruluk hissediyor musun?",
+        text: "Göz altı bölgesi kuruluk hissettiriyor mu?",
         options: [
-          { value: "evet", label: "Evet", score: 2 },
-          { value: "bazen", label: "Bazen", score: 1 },
-          { value: "hayir", label: "Hayır", score: 0 }
+          { value: "her_gun", label: "Evet, her gün hissediyorum", score: 2 },
+          { value: "ara_sira", label: "Ara sıra hissediyorum", score: 1 },
+          { value: "nadiren", label: "Nadiren hissediyorum", score: 0 },
+          { value: "hic", label: "Hiç hissetmiyorum", score: 0 }
         ]
       },
       {
         id: "gozSisme",
         text: "Göz altın sabahları şişiyor mu?",
         options: [
-          { value: "her_sabah", label: "Evet her sabah", score: 2 },
-          { value: "bazen", label: "Bazen", score: 1 },
-          { value: "sismiyor", label: "Hayır şişmiyor", score: 0 },
-          { value: "fark_etmedim", label: "Fark etmedim", score: 0 }
+          { value: "her_sabah", label: "Evet, her sabah belirgin şişiyor", score: 2 },
+          { value: "bazen", label: "Bazen, özellikle az uyuyunca", score: 1 },
+          { value: "nadiren", label: "Çok nadir oluyor", score: 0 },
+          { value: "hic", label: "Hiç şişmiyor", score: 0 }
         ]
       }
     ]
