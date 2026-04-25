@@ -9,6 +9,45 @@ type ProductRow = {
   kategori: string;
 };
 
+const trendingProducts = [
+  {
+    id: "t1",
+    ad: "Moisturizing Cream",
+    marka: "CeraVe",
+    aciklama: "Tüm influencer'ların önerdiği krem",
+  },
+  {
+    id: "t2",
+    ad: "Niacinamide 10% + Zinc 1%",
+    marka: "The Ordinary",
+    aciklama: "Gözenek karşıtı viral serum",
+  },
+  {
+    id: "t3",
+    ad: "Anthelios SPF50+ Fluid",
+    marka: "La Roche-Posay",
+    aciklama: "SPF zorunluluğu trendi",
+  },
+  {
+    id: "t4",
+    ad: "Sensibio H2O",
+    marka: "Bioderma",
+    aciklama: "Makyaj temizliğinin ikonik ürünü",
+  },
+  {
+    id: "t5",
+    ad: "AHA 30% + BHA 2% Peeling Solution",
+    marka: "The Ordinary",
+    aciklama: "Peeling trendi",
+  },
+  {
+    id: "t6",
+    ad: "Hydro Boost Water Gel",
+    marka: "Neutrogena",
+    aciklama: "Glassy skin trendi",
+  },
+];
+
 export default async function HomePage() {
   const { data, error } = await supabase
     .from("urunler")
@@ -40,6 +79,56 @@ export default async function HomePage() {
           >
             Ara
           </button>
+        </div>
+      </section>
+
+      {/* TikTok Trending Section */}
+      <section className="mb-14 overflow-hidden rounded-3xl bg-gradient-to-br from-[#2D1B69] via-[#7C3AED] to-[#DB2777] p-6 md:p-8">
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-bold text-white md:text-3xl">
+              🎵 TikTok&apos;ta Şu An Trend
+            </h2>
+            <p className="mt-1 text-sm text-purple-200">
+              Sosyal medyada viral olan ürünler
+            </p>
+          </div>
+          <Link
+            href="/urunler"
+            className="shrink-0 rounded-xl border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+          >
+            Tümünü Gör
+          </Link>
+        </div>
+
+        <div className="flex gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {trendingProducts.map((product) => (
+            <article
+              key={product.id}
+              className="flex w-52 shrink-0 flex-col rounded-2xl bg-white/10 p-4 backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white/15"
+            >
+              <span className="mb-3 inline-flex w-fit items-center gap-1 rounded-full bg-pink-500 px-2.5 py-0.5 text-xs font-bold text-white">
+                🔥 TikTok&apos;ta Viral
+              </span>
+
+              <p className="text-xs font-semibold uppercase tracking-wide text-purple-200">
+                {product.marka}
+              </p>
+              <h3 className="mt-1 flex-1 text-sm font-bold leading-snug text-white">
+                {product.ad}
+              </h3>
+              <p className="mt-2 text-xs leading-relaxed text-purple-100">
+                {product.aciklama}
+              </p>
+
+              <Link
+                href="/urunler"
+                className="mt-4 rounded-xl bg-white px-4 py-2 text-center text-xs font-bold text-purple-700 transition hover:bg-purple-50"
+              >
+                İncele
+              </Link>
+            </article>
+          ))}
         </div>
       </section>
 
